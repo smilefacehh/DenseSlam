@@ -1,18 +1,19 @@
-CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
-PROJECT( dense-slam )
+cmake_minimum_required( VERSION 2.8 )
+project( dense-slam )
 
-SET(CMAKE_CXX_COMPILER "g++")
-SET( CMAKE_BUILD_TYPE Release  )
+set(CMAKE_CXX_COMPILER "g++")
+set( CMAKE_BUILD_TYPE Release  )
 # SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-SET(CMAKE_CXX_FLAGS "-std=c++11 -O3")
+set(CMAKE_CXX_FLAGS "-std=c++11 -g")
 
-FILE(GLOB ALL_SOURCES 
+file(GLOB ALL_SOURCES
     "src/*.cpp"
 )
-FILE(GLOB ALL_INCLUDES 
-    "src/*.h"
+file(GLOB ALL_INCLUDES
+    "include/*.h"
 )
-SET(ALL_SRCS ${ALL_SOURCES} ${ALL_INCLUDES})
+set(ALL_SRCS ${ALL_SOURCES} ${ALL_INCLUDES})
+include_directories(include)
 
 # PCL
 # FIND_PACKAGE( PCL REQUIRED COMPONENTS common io )
@@ -21,18 +22,18 @@ SET(ALL_SRCS ${ALL_SOURCES} ${ALL_INCLUDES})
 # LINK_LIBRARIES( ${PCL_LIBRARY_DIRS} )
 
 # octomap
-FIND_PACKAGE( octomap REQUIRED )
-INCLUDE_DIRECTORIES( ${OCTOMAP_INCLUDE_DIRS} )
+find_package( octomap REQUIRED )
+include_directories( ${OCTOMAP_INCLUDE_DIRS} )
 
 # opencv
-FIND_PACKAGE(OpenCV REQUIRED)
-INCLUDE_DIRECTORIES( ${OpenCV_INCLUDE_DIRS} )
+find_package(OpenCV REQUIRED)
+include_directories( ${OpenCV_INCLUDE_DIRS} )
 
 # eigen
-FIND_PACKAGE(Eigen3 REQUIRED)
-INCLUDE_DIRECTORIES( ${Eigen3_INCLUDE_DIRS} )
+find_package(Eigen3 REQUIRED)
+include_directories( ${Eigen3_INCLUDE_DIRS} )
 
-ADD_EXECUTABLE( slam ${ALL_SRCS} )
-TARGET_LINK_LIBRARIES( slam
+add_executable( slam ${ALL_SRCS} )
+target_link_libraries( slam
     ${OCTOMAP_LIBRARIES}
     ${OpenCV_LIBS})

@@ -1,2 +1,5 @@
 build/
 output/
+.idea/
+.qglviewer.xml
+.vscode/
